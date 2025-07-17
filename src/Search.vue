@@ -66,7 +66,7 @@ const loadQuery = async () => {
         loadingQuery.value = false;
         isError.value = true;
       });
-
+    // @ts-ignore
     gtag("event", "search", {
       search_term: query.value,
     });

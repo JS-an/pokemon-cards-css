@@ -1,11 +1,12 @@
 <script setup>
 import { ref, computed } from "vue";
-import { activeCard } from "./lib/stores/activeCard.js";
+import { useActiveCardStore } from "./lib/stores";
 
 const thisGrid = ref(null);
+const activeCardStore = useActiveCardStore();
 
 const active = computed(
-  () => thisGrid.value && thisGrid.value.contains(activeCard.value)
+  () => thisGrid.value && thisGrid.value.contains(activeCardStore.activeCard)
 );
 </script>
 

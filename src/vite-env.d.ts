@@ -69,3 +69,5 @@ declare global {
     dataLayer: any[]; // Google Analytics数据层
   }
 }
+
+export {};

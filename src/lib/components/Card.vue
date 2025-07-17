@@ -1,8 +1,11 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
-import { activeCard } from "../stores/activeCard.js";
-import { useOrientation, resetBaseOrientation } from "../stores/orientation.js";
+import { useActiveCardStore, useOrientationStore } from "../stores";
 import { clamp, round, adjust } from "../helpers/Math.js";
+
+// 使用 Pinia stores
+const activeCardStore = useActiveCardStore();
+const orientationStore = useOrientationStore();
 
 const props = defineProps({
   // data / pokemon props
@@ -137,7 +140,7 @@ const interact = (e) => {
   }
 
   // 防止其他背景卡片被交互
-  if (activeCard.value && activeCard.value !== thisCard.value) {
+  if (activeCardStore.activeCard && activeCardStore.activeCard !== thisCard.value) {
     return (interacting.value = false);
   }
 
@@ -198,12 +201,12 @@ const activate = (e) => {
   if (active.value) return;
 
   // 如果有活动卡片且不是当前卡片，则停用它
-  if (activeCard.value && activeCard.value !== thisCard.value) {
-    activeCard.value.dispatchEvent(new CustomEvent("revert"));
+  if (activeCardStore.activeCard && activeCardStore.activeCard !== thisCard.value) {
+    activeCardStore.activeCard.dispatchEvent(new CustomEvent("revert"));
   }
 
   // 设置当前卡片为活动卡片
-  activeCard.value = thisCard.value;
+  activeCardStore.setActiveCard(thisCard.value);
 
   // 设置卡片状态
   active.value = true;
@@ -275,7 +278,7 @@ const deactivate = (e) => {
   springScale.value = 1;
 
   // 清除活动卡片
-  activeCard.value = undefined;
+  activeCardStore.clearActiveCard();
 
   // 清除重新定位定时器
   clearTimeout(repositionTimer);
