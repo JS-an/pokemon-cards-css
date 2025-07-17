@@ -1,3 +1,3 @@
-import { writable } from "svelte/store";
+import { ref } from "vue";
 
-export const activeCard = writable(undefined);
+export const activeCard = ref(undefined);

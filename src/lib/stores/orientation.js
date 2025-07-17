@@ -1,4 +1,4 @@
-import { readable } from "svelte/store";
+import { ref, onMounted, onUnmounted } from "vue";
 
 
 const getRawOrientation = function(e) {
@@ -29,24 +29,27 @@ export const resetBaseOrientation = () => {
   baseOrientation = getRawOrientation();
 }
 
-export const orientation = readable( getOrientationObject(), function start( set ) {
+export const useOrientation = () => {
+  const orientation = ref(getOrientationObject());
 
   // https://developer.mozilla.org/en-US/docs/Web/API/Window/ondeviceorientation
   const handleOrientation = function(e) {
-
     if ( firstReading ) {
       firstReading = false;
       baseOrientation = getRawOrientation(e);
     }
 
     const o = getOrientationObject(e);
-    set( o );
+    orientation.value = o;
   };
 
-  window.addEventListener("deviceorientation", handleOrientation, true);
+  onMounted(() => {
+    window.addEventListener("deviceorientation", handleOrientation, true);
+  });
 
-  return function stop() {
+  onUnmounted(() => {
     window.removeEventListener("deviceorientation", handleOrientation, true);
-  }
+  });
 
-});
+  return orientation;
+};

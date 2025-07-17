@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.1.0",
+    "@vitejs/plugin-vue": "^6.0.0",
     "pokemontcgsdk": "^2.0.0",
-    "svelte": "^3.52.0",
-    "vite": "^3.2.0"
+    "vite": "^7.0.5",
+    "vue": "^3.5.13"
   }
 }
