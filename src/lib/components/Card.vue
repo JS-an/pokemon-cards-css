@@ -75,25 +75,18 @@ const front_img = computed(() => {
 });
 
 const isTrainerGallery = computed(() => {
-  return props.number && !!props.number.match(/^[tg]g/i);
+  const numberLower = props.number.toLowerCase();
+  return !!numberLower.match(/^[tg]g/i) ||
+         !!(props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077");
 });
 
 // 样式计算
 const staticStyles = computed(() => {
   return `
-      --mx: ${springBackground.value.x}%;
-      --my: ${springBackground.value.y}%;
-      --posx: ${springBackground.value.x}%;
-      --posy: ${springBackground.value.y}%;
-      --hyp: ${clamp(
-        Math.sqrt(
-          (springGlare.value.x - 50) * (springGlare.value.x - 50) +
-            (springGlare.value.y - 50) * (springGlare.value.y - 50)
-        ) / 50,
-        0,
-        1
-      )};
-    `;
+    --seedx: ${randomSeed.x};
+    --seedy: ${randomSeed.y};
+    --cosmosbg: ${cosmosPosition.x}px ${cosmosPosition.y}px;
+  `;
 });
 
 const foilStyles = computed(() => {
@@ -101,23 +94,29 @@ const foilStyles = computed(() => {
     ? `
       --foil-opacity: 1;
       --foil: url(${props.foil});
+      --mask: url(${props.mask});
     `
     : "";
 });
 
 const dynamicStyles = computed(() => {
   return `
-      --rx: ${springRotate.value.x + springRotateDelta.value.x}deg;
-      --ry: ${springRotate.value.y + springRotateDelta.value.y}deg;
-      --pos-x: ${springGlare.value.x}%;
-      --pos-y: ${springGlare.value.y}%;
-      --glow-opacity: ${springGlare.value.o};
-      --scale: ${springScale.value};
-      --tx: ${springTranslate.value.x}px;
-      --ty: ${springTranslate.value.y}px;
-      --cosmos-x: ${cosmosPosition.x}px;
-      --cosmos-y: ${cosmosPosition.y}px;
-      --cosmos-opacity: ${springGlare.value.o};
+      --pointer-x: ${springGlare.value.x}%;
+      --pointer-y: ${springGlare.value.y}%;
+      --pointer-from-center: ${Math.sqrt(
+        (springGlare.value.y - 50) * (springGlare.value.y - 50) +
+        (springGlare.value.x - 50) * (springGlare.value.x - 50)
+      ) / 50};
+      --pointer-from-top: ${springGlare.value.y / 100};
+      --pointer-from-left: ${springGlare.value.x / 100};
+      --card-opacity: ${springGlare.value.o};
+      --rotate-x: ${springRotate.value.x + springRotateDelta.value.x}deg;
+      --rotate-y: ${springRotate.value.y + springRotateDelta.value.y}deg;
+      --background-x: ${springBackground.value.x}%;
+      --background-y: ${springBackground.value.y}%;
+      --card-scale: ${springScale.value};
+      --translate-x: ${springTranslate.value.x}px;
+      --translate-y: ${springTranslate.value.y}px;
     `;
 });
 
@@ -355,6 +354,7 @@ onMounted(() => {
     :data-subtypes="subtypes"
     :data-supertype="supertype"
     :data-rarity="rarity"
+    :data-trainer-gallery="isTrainerGallery"
     :style="dynamicStyles"
     ref="thisCard"
   >
@@ -414,7 +414,7 @@ onMounted(() => {
 .card__translater {
   width: 100%;
   height: 100%;
-  transform: translate3d(var(--tx, 0), var(--ty, 0), 0);
+  transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0);
   transition: transform 0.2s ease-out;
 }
 
@@ -425,7 +425,7 @@ onMounted(() => {
   border: none;
   background: none;
   cursor: pointer;
-  transform: scale(var(--scale, 1)) rotateY(var(--rx, 0)) rotateX(var(--ry, 0));
+  transform: scale(var(--card-scale, 1)) rotateY(var(--rotate-x, 0)) rotateX(var(--rotate-y, 0));
   transition: transform 0.2s ease-out;
   transform-style: preserve-3d;
 }
@@ -454,7 +454,7 @@ onMounted(() => {
 }
 
 .card__front {
-  background-position: var(--mx, 50%) var(--my, 50%);
+  background-position: var(--background-x, 50%) var(--background-y, 50%);
   background-size: cover;
 }
 
@@ -472,12 +472,12 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background-image: radial-gradient(
-    farthest-corner circle at var(--pos-x, 50%) var(--pos-y, 50%),
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
     rgba(255, 255, 255, 0.8) 0%,
     rgba(255, 255, 255, 0.65) 15%,
     rgba(255, 255, 255, 0) 60%
   );
-  opacity: var(--glow-opacity, 0);
+  opacity: var(--card-opacity, 0);
   mix-blend-mode: soft-light;
   pointer-events: none;
 }
@@ -489,11 +489,11 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   background-image: radial-gradient(
-    farthest-corner circle at var(--pos-x, 50%) var(--pos-y, 50%),
+    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
     rgba(255, 255, 255, 0.6) 0%,
     rgba(255, 255, 255, 0) 80%
   );
-  opacity: var(--glow-opacity, 0);
+  opacity: var(--card-opacity, 0);
   mix-blend-mode: overlay;
   pointer-events: none;
 }
