@@ -9,8 +9,8 @@
     "number": "160",
     "rarity": "rare secret",
     "images": {
-      "small": "https://images.pokemontcg.io/swsh12pt5/160.png",
-      "large": "https://images.pokemontcg.io/swsh12pt5/160_hires.png"
+      "small": "160.png",
+      "large": "160_hires.png"
     }
   },
   {
@@ -23,8 +23,8 @@
     "number": "33",
     "rarity": "common",
     "images": {
-      "small": "https://images.pokemontcg.io/sm10/33.png",
-      "large": "https://images.pokemontcg.io/sm10/33_hires.png"
+      "small": "33.png",
+      "large": "33_hires.png"
     }
   },
   {
@@ -65,10 +65,10 @@
     "number": "127",
     "rarity": "common",
     "images": {
-      "small": "https://images.pokemontcg.io/swsh12/127.png",
-      "large": "https://images.pokemontcg.io/swsh12/127_hires.png",
-      "foil": "/img/foils/swsh12/foils/127_foil_holo_reverse.jpg",
-      "mask": "/img/foils/swsh12/masks/127_foil_holo_reverse.png"
+      "small": "127.png",
+      "large": "127_hires.png",
+      "foil": "127_foil_holo_reverse_2x.webp",
+      "mask": "127_foil_holo_reverse_mask_2x.webp"
     }
   },
   {
@@ -511,10 +511,10 @@
     "number": "186",
     "rarity": "rare ultra",
     "images": {
-      "small": "https://images.pokemontcg.io/swsh11/186.png",
-      "large": "https://images.pokemontcg.io/swsh11/186_hires.png",
-      "foil": "/img/foils/swsh11/foils/186_foil_etched_sunpillar.jpg",
-      "mask": "/img/foils/swsh11/masks/186_foil_etched_sunpillar.png"
+      "small": "186/186.png",
+      "large": "186/186_hires.png",
+      "foil": "186/186_foil_etched_sunpillar.webp",
+      "mask": "186/186_foil_etched_sunpillar_mask.webp"
     }
   },
   {

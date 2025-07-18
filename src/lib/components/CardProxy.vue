@@ -117,6 +117,7 @@ function isArray(v) {
 }
 
 const cardImage = computed(() => {
+  console.log("cardImage", img, set, number);
   if (isDefined(img)) {
     return img;
   }
@@ -254,7 +255,8 @@ const foilMaskImage = (prop, type = "masks") => {
     }
   }
 
-  return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.${ext}`;
+  // return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.${ext}`;
+  return type === "foils" ? props.foil : props.mask;
 };
 
 const foilImage = computed(() => {

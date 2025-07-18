@@ -22,7 +22,7 @@ const props = defineProps({
   img: { type: String, default: "" },
   back: {
     type: String,
-    default: "https://tcg.pokemon.com/assets/img/global/tcg-card-back-2x.jpg",
+    default: "/public/images/back/card-2x.jpg",
   },
   foil: { type: String, default: "" },
   mask: { type: String, default: "" },
@@ -70,7 +70,7 @@ const back_img = computed(() => props.back);
 const front_img = computed(() => {
   const img_base = props.img.startsWith("http")
     ? ""
-    : "https://images.pokemontcg.io/";
+    : "/public/images/";
   return img_base + props.img;
 });
 
