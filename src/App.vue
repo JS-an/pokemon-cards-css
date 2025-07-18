@@ -131,6 +131,18 @@
 
 	<Search v-model:query="query" />
 
+	<Card
+		key="swsh11-186"
+		id="swsh11-186"
+		name="Giratina V"
+		number="186"
+		set="swsh11"
+		:types="['dragon']"
+		supertype="pokémon"
+		subtypes="basic v"
+		rarity="rare ultra"
+	/>
+
 	<div v-if="query.length < 3">
 
 		<h2 id="⚓-common">
