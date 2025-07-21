@@ -665,10 +665,10 @@
     "number": "215",
     "rarity": "rare rainbow",
     "images": {
-      "small": "https://images.pokemontcg.io/swsh7/215.png",
-      "large": "https://images.pokemontcg.io/swsh7/215_hires.png",
-      "foil": "/img/foils/swsh7/foils/215_foil_etched_swsecret.jpg",
-      "mask": "/img/foils/swsh7/masks/215_foil_etched_swsecret.png"
+      "small": "215/215.png",
+      "large": "215/215_hires.png",
+      "foil": "215/215_foil.webp",
+      "mask": "215/215_mask.webp"
     }
   },
   {

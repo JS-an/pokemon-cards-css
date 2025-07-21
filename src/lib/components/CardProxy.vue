@@ -103,10 +103,6 @@ function isDefined(v) {
   return typeof v !== "undefined" && v !== null;
 }
 
-function isArray(v) {
-  return typeof v !== "undefined" && Array.isArray(v);
-}
-
 const cardImage = computed(() => {
   if (isDefined(props.img)) {
     return props.img;

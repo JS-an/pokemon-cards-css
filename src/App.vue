@@ -171,6 +171,21 @@ onMounted(() => {
       mask="12/12_mask.webp"
     />
 
+    <Card
+      key="swsh7-215"
+      id="swsh7-215"
+      name="Umbreon VMAX"
+      number="215"
+      set="swsh7"
+      :types="['darkness']"
+      supertype="pokémon"
+      subtypes="vmax single strike"
+      rarity="rare rainbow"
+      img="215/215.png"
+      foil="215/215_foil.webp"
+      mask="215/215_mask.webp"
+    />
+
     <div v-if="query.length < 3">
       <h2 id="⚓-common">
         <a href="#⚓-common"> Common &amp; Uncommon </a>

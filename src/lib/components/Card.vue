@@ -68,16 +68,16 @@ let showcaseRunning = props.showcase;
 // 计算属性
 const back_img = computed(() => props.back);
 const front_img = computed(() => {
-  const img_base = props.img.startsWith("http")
-    ? ""
-    : "/public/images/";
+  const img_base = props.img.startsWith("http") ? "" : "/public/images/";
   return img_base + props.img;
 });
 
 const isTrainerGallery = computed(() => {
   const numberLower = props.number.toLowerCase();
-  return !!numberLower.match(/^[tg]g/i) ||
-         !!(props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077");
+  return (
+    !!numberLower.match(/^[tg]g/i) ||
+    !!(props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077")
+  );
 });
 
 // 样式计算
@@ -103,10 +103,12 @@ const dynamicStyles = computed(() => {
   return `
       --pointer-x: ${springGlare.value.x}%;
       --pointer-y: ${springGlare.value.y}%;
-      --pointer-from-center: ${Math.sqrt(
-        (springGlare.value.y - 50) * (springGlare.value.y - 50) +
-        (springGlare.value.x - 50) * (springGlare.value.x - 50)
-      ) / 50};
+      --pointer-from-center: ${
+        Math.sqrt(
+          (springGlare.value.y - 50) * (springGlare.value.y - 50) +
+            (springGlare.value.x - 50) * (springGlare.value.x - 50)
+        ) / 50
+      };
       --pointer-from-top: ${springGlare.value.y / 100};
       --pointer-from-left: ${springGlare.value.x / 100};
       --card-opacity: ${springGlare.value.o};
@@ -139,7 +141,10 @@ const interact = (e) => {
   }
 
   // 防止其他背景卡片被交互
-  if (activeCardStore.activeCard && activeCardStore.activeCard !== thisCard.value) {
+  if (
+    activeCardStore.activeCard &&
+    activeCardStore.activeCard !== thisCard.value
+  ) {
     return (interacting.value = false);
   }
 
@@ -200,7 +205,10 @@ const activate = (e) => {
   if (active.value) return;
 
   // 如果有活动卡片且不是当前卡片，则停用它
-  if (activeCardStore.activeCard && activeCardStore.activeCard !== thisCard.value) {
+  if (
+    activeCardStore.activeCard &&
+    activeCardStore.activeCard !== thisCard.value
+  ) {
     activeCardStore.activeCard.dispatchEvent(new CustomEvent("revert"));
   }
 
@@ -373,8 +381,6 @@ onMounted(() => {
           :src="back_img"
           alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
           loading="lazy"
-          width="660"
-          height="921"
         />
         <div class="card__front" :style="staticStyles + foilStyles">
           <img
@@ -382,8 +388,6 @@ onMounted(() => {
             :alt="`Front design of the ${name} Pokemon Card, with the stats and info around the edge`"
             @load="imageLoader"
             loading="lazy"
-            width="660"
-            height="921"
           />
           <div class="card__shine"></div>
           <div class="card__glare"></div>
@@ -405,141 +409,5 @@ onMounted(() => {
   perspective: 2000px;
   will-change: transform;
   transition: z-index 0.2s;
-}
-
-.card.active {
-  z-index: 2;
-}
-
-.card__translater {
-  width: 100%;
-  height: 100%;
-  transform: translate3d(var(--translate-x, 0), var(--translate-y, 0), 0);
-  transition: transform 0.2s ease-out;
-}
-
-.card__rotator {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: none;
-  cursor: pointer;
-  transform: scale(var(--card-scale, 1)) rotateY(var(--rotate-x, 0)) rotateX(var(--rotate-y, 0));
-  transition: transform 0.2s ease-out;
-  transform-style: preserve-3d;
-}
-
-.card.interacting .card__rotator {
-  transition: transform 0.1s ease-out;
-}
-
-.card__back,
-.card__front {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-  overflow: hidden;
-  border-radius: 4.5% / 3.5%;
-  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2);
-}
-
-.card__back {
-  transform: rotateY(180deg);
-  background-color: #070707;
-}
-
-.card__front {
-  background-position: var(--background-x, 50%) var(--background-y, 50%);
-  background-size: cover;
-}
-
-.card__front img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: translateZ(0);
-}
-
-.card__shine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(
-    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-    rgba(255, 255, 255, 0.8) 0%,
-    rgba(255, 255, 255, 0.65) 15%,
-    rgba(255, 255, 255, 0) 60%
-  );
-  opacity: var(--card-opacity, 0);
-  mix-blend-mode: soft-light;
-  pointer-events: none;
-}
-
-.card__glare {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(
-    farthest-corner circle at var(--pointer-x, 50%) var(--pointer-y, 50%),
-    rgba(255, 255, 255, 0.6) 0%,
-    rgba(255, 255, 255, 0) 80%
-  );
-  opacity: var(--card-opacity, 0);
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-/* 卡片类型样式 */
-.card.fire {
-  --card-color: #ff9c54;
-}
-
-.card.water {
-  --card-color: #5090d6;
-}
-
-.card.grass {
-  --card-color: #63bc5a;
-}
-
-.card.electric {
-  --card-color: #f4d23c;
-}
-
-.card.psychic {
-  --card-color: #fa7179;
-}
-
-.card.fighting {
-  --card-color: #ce416b;
-}
-
-.card.darkness {
-  --card-color: #5a5465;
-}
-
-.card.metal {
-  --card-color: #5a8ea2;
-}
-
-.card.fairy {
-  --card-color: #ec8fe6;
-}
-
-.card.dragon {
-  --card-color: #0b6dc3;
-}
-
-.card.colorless {
-  --card-color: #9da0aa;
 }
 </style>
