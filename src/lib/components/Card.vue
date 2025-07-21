@@ -399,7 +399,7 @@ onMounted(() => {
   position: relative;
   width: 100%;
   max-width: 300px;
-  aspect-ratio: 660 / 921;
+  aspect-ratio: 9 / 16;
   transform-style: preserve-3d;
   transform-origin: center;
   perspective: 2000px;

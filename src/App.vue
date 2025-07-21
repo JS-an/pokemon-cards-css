@@ -125,19 +125,36 @@ onMounted(() => {
     <Search v-model:query="query" />
 
     <Card
-      key="swsh11-186"
-      id="swsh11-186"
-      name="Giratina V"
-      number="186"
-      set="swsh11"
-      :types="['dragon']"
+      key="test"
+      id="test"
+      name="test"
+      number="test"
+      set="test"
+      :types="['test']"
+      supertype="pokémon"
+      subtypes="basic"
+      rarity="common"
+      img="test/test.png"
+    />
+
+    <br />
+
+    <Card
+      key="test1"
+      id="test1"
+      name="test1"
+      number="test1"
+      set="test1"
+      :types="['test']"
       supertype="pokémon"
       subtypes="basic v"
       rarity="rare ultra"
-      img="186/186_hires.png"
-      foil="186/186_foil_etched_sunpillar.webp"
-      mask="186/186_foil_etched_sunpillar_mask.webp"
+      img="test/test1.png"
+      foil="12/12_foil.webp"
+      mask="12/12_mask.webp"
     />
+
+    <br />
 
     <Card
       key="pgo-12"
