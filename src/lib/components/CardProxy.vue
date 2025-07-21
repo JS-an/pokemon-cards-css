@@ -26,82 +26,73 @@ const props = defineProps({
   showcase: { type: Boolean, default: false },
 });
 
-// 使用props直接访问以保持响应性
-const {
-  id,
-  name,
-  number,
-  set,
-  types,
-  subtypes,
-  supertype,
-  rarity,
-  isReverse,
-  img,
-  back,
-  foil,
-  mask,
-  showcase,
-} = props;
-
 const server = import.meta.env.VITE_CDN;
 
 const isShiny = computed(
-  () => isDefined(number) && number.toLowerCase().startsWith("sv")
+  () => isDefined(props.number) && props.number.toLowerCase().startsWith("sv")
 );
 const isGallery = computed(
-  () => isDefined(number) && !!number.match(/^[tg]g/i)
+  () => isDefined(props.number) && !!props.number.match(/^[tg]g/i)
 );
 const isAlternate = computed(
   () =>
-    isDefined(id) && altArts.includes(id) && !isShiny.value && !isGallery.value
+    isDefined(props.id) &&
+    altArts.includes(props.id) &&
+    !isShiny.value &&
+    !isGallery.value
 );
-const isPromo = computed(() => isDefined(set) && set === "swshp");
+const isPromo = computed(() => isDefined(props.set) && props.set === "swshp");
 const processedRarity = computed(() => {
-  let processedRarity = rarity;
+  let processedRarity = props.rarity;
 
-  if (isReverse) {
-    processedRarity = processedRarity + " Reverse Holo";
+  if (props.isReverse) {
+    processedRarity = processedRarity + " reverse holo";
   }
 
   if (isGallery.value) {
     if (
       isDefined(processedRarity) &&
-      processedRarity.startsWith("Trainer Gallery")
+      processedRarity.startsWith("trainer gallery")
     ) {
-      processedRarity = processedRarity.replace(/Trainer Gallery\s*/, "");
+      processedRarity = processedRarity.replace(/trainer gallery\s*/, "");
     }
     if (
       isDefined(processedRarity) &&
-      processedRarity.includes("Rare Holo V") &&
-      isDefined(subtypes) &&
-      subtypes.includes("VMAX")
+      processedRarity.includes("rare holo v") &&
+      isDefined(props.subtypes) &&
+      props.subtypes.includes("vmax")
     ) {
-      processedRarity = "Rare Holo VMAX";
+      processedRarity = "rare holo vmax";
     }
     if (
       isDefined(processedRarity) &&
-      processedRarity.includes("Rare Holo V") &&
-      isDefined(subtypes) &&
-      subtypes.includes("VSTAR")
+      processedRarity.includes("rare holo v") &&
+      isDefined(props.subtypes) &&
+      props.subtypes.includes("vstar")
     ) {
-      processedRarity = "Rare Holo VSTAR";
+      processedRarity = "rare holo vstar";
     }
   }
 
   if (isPromo.value) {
-    if (id === "swshp-SWSH076" || id === "swshp-SWSH077") {
-      processedRarity = "Rare Secret";
-    } else if (isDefined(subtypes) && subtypes.includes("V")) {
-      processedRarity = "Rare Holo V";
-    } else if (isDefined(subtypes) && subtypes.includes("V-UNION")) {
-      processedRarity = "Rare Holo VUNION";
-    } else if (isDefined(subtypes) && subtypes.includes("VMAX")) {
-      processedRarity = "Rare Holo VMAX";
-    } else if (isDefined(subtypes) && subtypes.includes("VSTAR")) {
-      processedRarity = "Rare Holo VSTAR";
-    } else if (isDefined(subtypes) && subtypes.includes("Radiant")) {
-      processedRarity = "Radiant Rare";
+    if (props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077") {
+      processedRarity = "rare secret";
+    } else if (isDefined(props.subtypes) && props.subtypes.includes("v")) {
+      processedRarity = "rare holo v";
+    } else if (
+      isDefined(props.subtypes) &&
+      props.subtypes.includes("v-union")
+    ) {
+      processedRarity = "rare holo vunion";
+    } else if (isDefined(props.subtypes) && props.subtypes.includes("vmax")) {
+      processedRarity = "rare holo vmax";
+    } else if (isDefined(props.subtypes) && props.subtypes.includes("vstar")) {
+      processedRarity = "rare holo vstar";
+    } else if (
+      isDefined(props.subtypes) &&
+      props.subtypes.includes("radiant")
+    ) {
+      processedRarity = "radiant rare";
     }
   }
 
@@ -117,12 +108,13 @@ function isArray(v) {
 }
 
 const cardImage = computed(() => {
-  console.log("cardImage", img, set, number);
-  if (isDefined(img)) {
-    return img;
+  if (isDefined(props.img)) {
+    return props.img;
   }
-  if (isDefined(set) && isDefined(number)) {
-    return `https://images.pokemontcg.io/${set.toLowerCase()}/${number}_hires.png`;
+  if (isDefined(props.set) && isDefined(props.number)) {
+    return `https://images.pokemontcg.io/${props.set.toLowerCase()}/${
+      props.number
+    }_hires.png`;
   }
   return "";
 });
@@ -136,26 +128,27 @@ const foilMaskImage = (prop, type = "masks") => {
     if (prop === false) {
       return "";
     }
-    return prop;
+    // return prop;
+    return `/public/images/${prop}`;
   }
 
   if (
     !isDefined(processedRarity.value) ||
-    !isDefined(subtypes) ||
-    !isDefined(supertype) ||
-    !isDefined(set) ||
-    !isDefined(number)
+    !isDefined(props.subtypes) ||
+    !isDefined(props.supertype) ||
+    !isDefined(props.set) ||
+    !isDefined(props.number)
   ) {
     return "";
   }
 
   const fRarity = processedRarity.value.toLowerCase();
-  const fNumber = number
+  const fNumber = props.number
     .toString()
     .toLowerCase()
     .replace("swsh", "")
     .padStart(3, "0");
-  const fSet = set
+  const fSet = props.set
     .toString()
     .toLowerCase()
     .replace(/(tg|gg|sv)/, "");
@@ -238,7 +231,7 @@ const foilMaskImage = (prop, type = "masks") => {
   if (isAlternate.value) {
     etch = "etched";
 
-    if (subtypes.includes("VMAX")) {
+    if (props.subtypes.includes("VMAX")) {
       style = "swsecret";
       // Note: rarity modification removed as it's handled in processedRarity computed
     } else {
@@ -247,7 +240,7 @@ const foilMaskImage = (prop, type = "masks") => {
   }
 
   if (isPromo.value) {
-    let promoStyle = promos[id];
+    let promoStyle = promos[props.id];
     if (promoStyle) {
       style = promoStyle.style.toLowerCase();
       etch = promoStyle.etch.toLowerCase();
@@ -255,33 +248,32 @@ const foilMaskImage = (prop, type = "masks") => {
     }
   }
 
-  // return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.${ext}`;
-  return type === "foils" ? props.foil : props.mask;
+  return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.${ext}`;
 };
 
 const foilImage = computed(() => {
-  return foilMaskImage(foil, "foils");
+  return foilMaskImage(props.foil, "foils");
 });
 
 const maskImage = computed(() => {
-  return foilMaskImage(mask, "masks");
+  return foilMaskImage(props.mask, "masks");
 });
 
 const proxy = computed(() => ({
   img: cardImage.value,
-  back,
+  back: props.back,
   foil: foilImage.value,
   mask: maskImage.value,
 
-  id,
-  name,
-  number,
-  set,
-  types,
-  subtypes,
-  supertype,
+  id: props.id,
+  name: props.name,
+  number: props.number,
+  set: props.set,
+  types: props.types,
+  subtypes: props.subtypes,
+  supertype: props.supertype,
   rarity: processedRarity.value,
-  showcase,
+  showcase: props.showcase,
 }));
 </script>
 

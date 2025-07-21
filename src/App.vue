@@ -135,8 +135,23 @@ onMounted(() => {
       subtypes="basic v"
       rarity="rare ultra"
       img="186/186_hires.png"
-      foil="/public/images/186/186_foil_etched_sunpillar.webp"
-      mask="/public/images/186/186_foil_etched_sunpillar_mask.webp"
+      foil="186/186_foil_etched_sunpillar.webp"
+      mask="186/186_foil_etched_sunpillar_mask.webp"
+    />
+
+    <Card
+      key="pgo-12"
+      id="pgo-12"
+      name="Moltres"
+      number="12"
+      set="pgo"
+      :types="['fire']"
+      supertype="pokémon"
+      subtypes="basic"
+      rarity="rare holo"
+      img="12/12_hires.png"
+      foil="12/12_foil.webp"
+      mask="12/12_mask.webp"
     />
 
     <div v-if="query.length < 3">
