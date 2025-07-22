@@ -1,11 +1,10 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
-import { useActiveCardStore, useOrientationStore } from "../lib/stores";
+import { useActiveCardStore } from "../lib/stores";
 import { clamp, round, adjust } from "../lib/helpers/Math.js";
 
 // 使用 Pinia stores
 const activeCardStore = useActiveCardStore();
-const orientationStore = useOrientationStore();
 
 const props = defineProps({
   // data / pokemon props
@@ -21,10 +20,7 @@ const props = defineProps({
 
   // image props
   img: { type: String, default: "" },
-  back: {
-    type: String,
-    default: "/public/images/back/card-2x.jpg",
-  },
+  back: { type: String, default: "/public/images/back/card-2x.jpg" },
   foil: { type: String, default: "" },
   mask: { type: String, default: "" },
 });
@@ -45,7 +41,6 @@ const thisCard = ref(null);
 const active = ref(false);
 const interacting = ref(false);
 const loading = ref(true);
-const firstPop = ref(true);
 const isVisible = ref(document.visibilityState === "visible");
 
 // 动画相关的响应式变量
@@ -115,34 +110,6 @@ const updateSprings = (background, rotate, glare) => {
   springGlare.value = glare;
 };
 
-// 设备方向感应函数
-const orientate = (e) => {
-  const x = e.relative.gamma;
-  const y = e.relative.beta;
-  const limit = { x: 16, y: 18 };
-
-  const degrees = {
-    x: clamp(x, -limit.x, limit.x),
-    y: clamp(y, -limit.y, limit.y),
-  };
-
-  updateSprings(
-    {
-      x: adjust(degrees.x, -limit.x, limit.x, 37, 63),
-      y: adjust(degrees.y, -limit.y, limit.y, 33, 67),
-    },
-    {
-      x: round(degrees.x * -1),
-      y: round(degrees.y),
-    },
-    {
-      x: adjust(degrees.x, -limit.x, limit.x, 0, 100),
-      y: adjust(degrees.y, -limit.y, limit.y, 0, 100),
-      o: 1,
-    }
-  );
-};
-
 // 交互方法
 const interact = (e) => {
   if (!isVisible.value) {
@@ -198,11 +165,11 @@ const interact = (e) => {
 
 const interactEnd = (e, delay = 500) => {
   // setTimeout(() => {
-    interacting.value = false;
+  interacting.value = false;
 
-    springRotate.value = { x: 0, y: 0 };
-    springGlare.value = { x: 50, y: 50, o: 0 };
-    springBackground.value = { x: 50, y: 50 };
+  springRotate.value = { x: 0, y: 0 };
+  springGlare.value = { x: 50, y: 50, o: 0 };
+  springBackground.value = { x: 50, y: 50 };
   // }, delay);
 };
 
@@ -224,12 +191,6 @@ const activate = (e) => {
   active.value = true;
   interacting.value = true;
   loading.value = false;
-  firstPop.value = false;
-
-  // 1秒后重置firstPop
-  setTimeout(() => {
-    firstPop.value = true;
-  }, 1000);
 
   // 5.5秒后停止交互
   setTimeout(() => {
@@ -282,7 +243,6 @@ const deactivate = (e) => {
   active.value = false;
   interacting.value = false;
   loading.value = false;
-  firstPop.value = true;
 
   // 重置spring值
   springRotateDelta.value = { x: 0, y: 0 };
@@ -300,28 +260,12 @@ const imageLoader = (e) => {
   loading.value = false;
 };
 
-// 监听设备方向变化
-watch(
-  () => orientationStore.orientation,
-  (newOrientation) => {
-    if (
-      activeCardStore.activeCard &&
-      activeCardStore.activeCard === thisCard.value
-    ) {
-      interacting.value = true;
-      orientate(newOrientation);
-    }
-  },
-  { deep: true }
-);
-
 // 生命周期
 onMounted(() => {
   // 初始化状态
   loading.value = true;
   active.value = false;
   interacting.value = false;
-  firstPop.value = true;
   isVisible.value = document.visibilityState === "visible";
 
   // 设置可见性变化监听器
@@ -333,9 +277,6 @@ onMounted(() => {
   if (thisCard.value) {
     thisCard.value.addEventListener("revert", deactivate);
   }
-
-  // 初始化设备方向感应
-  orientationStore.useOrientation();
 });
 </script>
 
