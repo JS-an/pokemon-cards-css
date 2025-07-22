@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from "vue";
-import { useActiveCardStore, useOrientationStore } from "../stores";
-import { clamp, round, adjust } from "../helpers/Math.js";
+import { useActiveCardStore, useOrientationStore } from "../lib/stores";
+import { clamp, round, adjust } from "../lib/helpers/Math.js";
 
 // 使用 Pinia stores
 const activeCardStore = useActiveCardStore();
@@ -15,8 +15,9 @@ const props = defineProps({
   set: { type: String, default: "" },
   types: { type: Array, default: () => [] },
   subtypes: { type: String, default: "basic" },
-  supertype: { type: String, default: "pokémon" },
-  rarity: { type: String, default: "common" },
+  supertype: { type: String, default: "pokémon" }, // 类型（ trainer / pokémon ）（ 培训师 / 宝可梦 ）
+  rarity: { type: String, default: "common" }, // 稀有程度（决定大部分样式的）
+  isTrainerGallery: { type: Boolean, default: false }, // 是否是培训师
 
   // image props
   img: { type: String, default: "" },
@@ -26,9 +27,6 @@ const props = defineProps({
   },
   foil: { type: String, default: "" },
   mask: { type: String, default: "" },
-
-  // context/environment props
-  showcase: { type: Boolean, default: false },
 });
 
 // 随机种子用于cosmos位置
@@ -60,10 +58,6 @@ const springScale = ref(1);
 
 // 定时器
 let repositionTimer;
-let showcaseInterval;
-let showcaseTimerStart;
-let showcaseTimerEnd;
-let showcaseRunning = props.showcase;
 
 // 计算属性
 const back_img = computed(() => props.back);
@@ -71,13 +65,13 @@ const front_img = computed(() => {
   const img_base = props.img.startsWith("http") ? "" : "/public/images/";
   return img_base + props.img;
 });
-
-const isTrainerGallery = computed(() => {
-  const numberLower = props.number.toLowerCase();
-  return (
-    !!numberLower.match(/^[tg]g/i) ||
-    !!(props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077")
-  );
+const foilStyles = computed(() => {
+  return props.foil
+    ? `
+      --foil: url(/public/images/${props.foil});
+      --mask: url(/public/images/${props.mask});
+    `
+    : "";
 });
 
 // 样式计算
@@ -87,16 +81,6 @@ const staticStyles = computed(() => {
     --seedy: ${randomSeed.y};
     --cosmosbg: ${cosmosPosition.x}px ${cosmosPosition.y}px;
   `;
-});
-
-const foilStyles = computed(() => {
-  return props.foil
-    ? `
-      --foil-opacity: 1;
-      --foil: url(${props.foil});
-      --mask: url(${props.mask});
-    `
-    : "";
 });
 
 const dynamicStyles = computed(() => {
@@ -123,16 +107,6 @@ const dynamicStyles = computed(() => {
       --translate-y: ${springTranslate.value.y}px;
     `;
 });
-
-// 结束showcase模式
-const endShowcase = () => {
-  if (showcaseRunning) {
-    clearTimeout(showcaseTimerEnd);
-    clearTimeout(showcaseTimerStart);
-    clearInterval(showcaseInterval);
-    showcaseRunning = false;
-  }
-};
 
 // 统一更新动画状态的函数
 const updateSprings = (background, rotate, glare) => {
@@ -165,14 +139,12 @@ const orientate = (e) => {
       x: adjust(degrees.x, -limit.x, limit.x, 0, 100),
       y: adjust(degrees.y, -limit.y, limit.y, 0, 100),
       o: 1,
-    },
+    }
   );
 };
 
 // 交互方法
 const interact = (e) => {
-  endShowcase();
-
   if (!isVisible.value) {
     return (interacting.value = false);
   }
@@ -220,18 +192,18 @@ const interact = (e) => {
       x: round(percent.x),
       y: round(percent.y),
       o: 1,
-    },
+    }
   );
 };
 
 const interactEnd = (e, delay = 500) => {
-  setTimeout(() => {
+  // setTimeout(() => {
     interacting.value = false;
 
     springRotate.value = { x: 0, y: 0 };
     springGlare.value = { x: 50, y: 50, o: 0 };
     springBackground.value = { x: 50, y: 50 };
-  }, delay);
+  // }, delay);
 };
 
 const activate = (e) => {
@@ -332,7 +304,10 @@ const imageLoader = (e) => {
 watch(
   () => orientationStore.orientation,
   (newOrientation) => {
-    if (activeCardStore.activeCard && activeCardStore.activeCard === thisCard.value) {
+    if (
+      activeCardStore.activeCard &&
+      activeCardStore.activeCard === thisCard.value
+    ) {
       interacting.value = true;
       orientate(newOrientation);
     }
@@ -361,39 +336,6 @@ onMounted(() => {
 
   // 初始化设备方向感应
   orientationStore.useOrientation();
-
-  // 设置showcase
-  if (props.showcase) {
-    showcaseRunning = true;
-    showcaseTimerStart = setTimeout(() => {
-      if (showcaseRunning) {
-        activate();
-        showcaseInterval = setInterval(() => {
-          if (showcaseRunning) {
-            interact({
-              target: thisCard.value,
-              clientX: Math.random() * thisCard.value.offsetWidth,
-              clientY: Math.random() * thisCard.value.offsetHeight,
-            });
-          }
-        }, 2000);
-        showcaseTimerEnd = setTimeout(() => {
-          if (showcaseRunning) {
-            deactivate();
-            interactEnd(null, 0);
-          } else {
-            interacting.value = false;
-            active.value = false;
-            return;
-          }
-        }, 4000);
-      } else {
-        interacting.value = false;
-        active.value = false;
-        return;
-      }
-    }, 2000);
-  }
 });
 </script>
 

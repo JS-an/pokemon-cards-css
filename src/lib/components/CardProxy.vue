@@ -42,62 +42,6 @@ const isAlternate = computed(
     !isGallery.value
 );
 const isPromo = computed(() => isDefined(props.set) && props.set === "swshp");
-const processedRarity = computed(() => {
-  let processedRarity = props.rarity;
-
-  if (props.isReverse) {
-    processedRarity = processedRarity + " reverse holo";
-  }
-
-  if (isGallery.value) {
-    if (
-      isDefined(processedRarity) &&
-      processedRarity.startsWith("trainer gallery")
-    ) {
-      processedRarity = processedRarity.replace(/trainer gallery\s*/, "");
-    }
-    if (
-      isDefined(processedRarity) &&
-      processedRarity.includes("rare holo v") &&
-      isDefined(props.subtypes) &&
-      props.subtypes.includes("vmax")
-    ) {
-      processedRarity = "rare holo vmax";
-    }
-    if (
-      isDefined(processedRarity) &&
-      processedRarity.includes("rare holo v") &&
-      isDefined(props.subtypes) &&
-      props.subtypes.includes("vstar")
-    ) {
-      processedRarity = "rare holo vstar";
-    }
-  }
-
-  if (isPromo.value) {
-    if (props.id === "swshp-SWSH076" || props.id === "swshp-SWSH077") {
-      processedRarity = "rare secret";
-    } else if (isDefined(props.subtypes) && props.subtypes.includes("v")) {
-      processedRarity = "rare holo v";
-    } else if (
-      isDefined(props.subtypes) &&
-      props.subtypes.includes("v-union")
-    ) {
-      processedRarity = "rare holo vunion";
-    } else if (isDefined(props.subtypes) && props.subtypes.includes("vmax")) {
-      processedRarity = "rare holo vmax";
-    } else if (isDefined(props.subtypes) && props.subtypes.includes("vstar")) {
-      processedRarity = "rare holo vstar";
-    } else if (
-      isDefined(props.subtypes) &&
-      props.subtypes.includes("radiant")
-    ) {
-      processedRarity = "radiant rare";
-    }
-  }
-
-  return processedRarity;
-});
 
 function isDefined(v) {
   return typeof v !== "undefined" && v !== null;
@@ -118,7 +62,7 @@ const cardImage = computed(() => {
 const foilMaskImage = (prop, type = "masks") => {
   let etch = "holo";
   let style = "reverse";
-  let ext = "webp";
+  // let ext = "webp";
 
   if (isDefined(prop)) {
     if (prop === false) {
@@ -129,7 +73,7 @@ const foilMaskImage = (prop, type = "masks") => {
   }
 
   if (
-    !isDefined(processedRarity.value) ||
+    !isDefined(props.rarity) ||
     !isDefined(props.subtypes) ||
     !isDefined(props.supertype) ||
     !isDefined(props.set) ||
@@ -138,7 +82,7 @@ const foilMaskImage = (prop, type = "masks") => {
     return "";
   }
 
-  const fRarity = processedRarity.value.toLowerCase();
+  const fRarity = props.rarity.toLowerCase();
   const fNumber = props.number
     .toString()
     .toLowerCase()
@@ -244,22 +188,14 @@ const foilMaskImage = (prop, type = "masks") => {
     }
   }
 
-  return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.${ext}`;
+  return `${server}/foils/${fSet}/${type}/upscaled/${fNumber}_foil_${etch}_${style}_2x.webp`;
 };
-
-const foilImage = computed(() => {
-  return foilMaskImage(props.foil, "foils");
-});
-
-const maskImage = computed(() => {
-  return foilMaskImage(props.mask, "masks");
-});
 
 const proxy = computed(() => ({
   img: cardImage.value,
   back: props.back,
-  foil: foilImage.value,
-  mask: maskImage.value,
+  foil: foilMaskImage(props.foil, "foils"),
+  mask: foilMaskImage(props.mask, "masks"),
 
   id: props.id,
   name: props.name,
@@ -268,7 +204,7 @@ const proxy = computed(() => ({
   types: props.types,
   subtypes: props.subtypes,
   supertype: props.supertype,
-  rarity: processedRarity.value,
+  rarity: props.rarity,
   showcase: props.showcase,
 }));
 </script>

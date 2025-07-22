@@ -14,6 +14,7 @@
     }
   },
   {
+    "___": "常见",
     "id": "sm10-33",
     "set": "sm10",
     "name": "Squirtle",
@@ -56,6 +57,7 @@
     }
   },
   {
+    "___": "常见 反转 全息",
     "id": "swsh12-127",
     "set": "swsh12",
     "name": "Togedemaru",
@@ -63,7 +65,7 @@
     "subtypes": ["basic"],
     "types": ["metal"],
     "number": "127",
-    "rarity": "common",
+    "rarity": "common reverse holo",
     "images": {
       "small": "127.png",
       "large": "127_hires.png",
@@ -72,6 +74,7 @@
     }
   },
   {
+    "___": "不常见 反转 全息",
     "id": "swsh12-85",
     "set": "swsh12",
     "name": "Dedenne",
@@ -79,7 +82,7 @@
     "subtypes": ["basic"],
     "types": ["psychic"],
     "number": "85",
-    "rarity": "uncommon",
+    "rarity": "uncommon reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh12/85.png",
       "large": "https://images.pokemontcg.io/swsh12/85_hires.png",
@@ -95,7 +98,7 @@
     "subtypes": ["basic"],
     "types": ["darkness"],
     "number": "116",
-    "rarity": "uncommon",
+    "rarity": "uncommon reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh12/116.png",
       "large": "https://images.pokemontcg.io/swsh12/116_hires.png",
@@ -104,6 +107,7 @@
     }
   },
   {
+    "___": "稀有 全息",
     "id": "pgo-24",
     "set": "pgo",
     "name": "Articuno",
@@ -199,6 +203,7 @@
     }
   },
   {
+    "___": "稀有 全息 银河/宇宙",
     "id": "swshp-SWSH012",
     "set": "swshp",
     "name": "Morpeko",
@@ -246,6 +251,7 @@
     }
   },
   {
+    "___": "辐射 稀有",
     "id": "pgo-11",
     "set": "pgo",
     "name": "Radiant Charizard",
@@ -294,6 +300,7 @@
     }
   },
   {
+    "___": "稀有 全息",
     "id": "swsh11tg-TG03",
     "set": "swsh11tg",
     "name": "Charizard",
@@ -301,7 +308,8 @@
     "subtypes": ["stage 2"],
     "types": ["fire"],
     "number": "TG03",
-    "rarity": "trainer gallery rare holo",
+    "rarity": "rare holo",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG03.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG03_hires.png",
@@ -317,7 +325,8 @@
     "subtypes": ["basic"],
     "types": ["lightning"],
     "number": "TG05",
-    "rarity": "trainer gallery rare holo",
+    "rarity": "rare holo",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG05.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG05_hires.png",
@@ -333,7 +342,8 @@
     "subtypes": ["stage 1"],
     "types": ["water"],
     "number": "TG02",
-    "rarity": "trainer gallery rare holo",
+    "rarity": "rare holo",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh12tg/TG02.png",
       "large": "https://images.pokemontcg.io/swsh12tg/TG02_hires.png",
@@ -342,6 +352,7 @@
     }
   },
   {
+    "___": "稀有 全息 对角",
     "id": "swsh7-110",
     "set": "swsh7",
     "name": "Rayquaza V",
@@ -390,6 +401,7 @@
     }
   },
   {
+    "___": "稀有 超级",
     "id": "swsh8-250",
     "set": "swsh8",
     "name": "Mew V",
@@ -438,6 +450,7 @@
     }
   },
   {
+    "___": "稀有 全息 对角",
     "id": "swshp-SWSH179",
     "set": "swshp",
     "name": "Flareon V",
@@ -445,7 +458,7 @@
     "subtypes": ["basic", "v", "single strike"],
     "types": ["fire"],
     "number": "SWSH179",
-    "rarity": "rare ultra",
+    "rarity": "rare holo v",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH179.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH179_hires.png",
@@ -461,7 +474,7 @@
     "subtypes": ["basic", "v", "rapid strike"],
     "types": ["water"],
     "number": "SWSH181",
-    "rarity": "rare ultra",
+    "rarity": "rare holo v",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH181.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH181_hires.png",
@@ -477,7 +490,7 @@
     "subtypes": ["basic", "v"],
     "types": ["lightning"],
     "number": "SWSH183",
-    "rarity": "rare ultra",
+    "rarity": "rare holo v",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH183.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH183_hires.png",
@@ -486,6 +499,7 @@
     }
   },
   {
+    "___": "稀有 超级",
     "id": "swsh8-245",
     "set": "swsh8",
     "name": "Celebi V",
@@ -534,6 +548,7 @@
     }
   },
   {
+    "___": "稀有 全息 最大对角 （暂未使用）",
     "id": "swshp-SWSH180",
     "set": "swshp",
     "name": "Flareon VMAX",
@@ -541,7 +556,7 @@
     "subtypes": ["vmax", "single strike"],
     "types": ["fire"],
     "number": "SWSH180",
-    "rarity": "rare rainbow",
+    "rarity": "rare holo vmax",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH180.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH180_hires.png"
@@ -555,7 +570,7 @@
     "subtypes": ["vmax", "rapid strike"],
     "types": ["water"],
     "number": "SWSH182",
-    "rarity": "rare rainbow",
+    "rarity": "rare holo vmax",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH182.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH182_hires.png"
@@ -569,13 +584,14 @@
     "subtypes": ["vmax"],
     "types": ["lightning"],
     "number": "SWSH184",
-    "rarity": "rare rainbow",
+    "rarity": "rare holo vmax",
     "images": {
       "small": "https://images.pokemontcg.io/swshp/SWSH184.png",
       "large": "https://images.pokemontcg.io/swshp/SWSH184_hires.png"
     }
   },
   {
+    "___": "稀有 全息 最大对角",
     "id": "swsh7-29",
     "set": "swsh7",
     "name": "Gyarados VMAX",
@@ -624,6 +640,7 @@
     }
   },
   {
+    "___": "稀有 彩虹",
     "id": "swsh8-270",
     "set": "swsh8",
     "name": "Espeon VMAX",
@@ -672,6 +689,7 @@
     }
   },
   {
+    "___": "稀有 全息 星对角",
     "id": "pgo-31",
     "set": "pgo",
     "name": "Mewtwo VSTAR",
@@ -720,6 +738,7 @@
     }
   },
   {
+    "___": "稀有 超级",
     "id": "swsh6-196",
     "set": "swsh6",
     "name": "Peonia",
@@ -772,6 +791,7 @@
     "subtypes": ["supporter"],
     "number": "TG27",
     "rarity": "rare ultra",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG27.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG27_hires.png",
@@ -787,6 +807,7 @@
     "subtypes": ["supporter"],
     "number": "TG26",
     "rarity": "rare ultra",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh12tg/TG26.png",
       "large": "https://images.pokemontcg.io/swsh12tg/TG26_hires.png",
@@ -802,6 +823,7 @@
     "subtypes": ["supporter"],
     "number": "TG26",
     "rarity": "rare ultra",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG26.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG26_hires.png",
@@ -810,6 +832,7 @@
     }
   },
   {
+    "___": "稀有 彩虹",
     "id": "swsh4-188",
     "set": "swsh4",
     "name": "Pikachu VMAX",
@@ -904,6 +927,7 @@
     }
   },
   {
+    "___": "稀有 秘密",
     "id": "swsh2-209",
     "set": "swsh2",
     "name": "Twin Energy",
@@ -989,6 +1013,7 @@
     "types": ["psychic"],
     "number": "TG30",
     "rarity": "rare secret",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG30.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG30_hires.png",
@@ -997,6 +1022,7 @@
     }
   },
   {
+    "___": "稀有 全息 对角",
     "id": "swsh9tg-TG16",
     "set": "swsh9tg",
     "name": "Mimikyu V",
@@ -1005,6 +1031,7 @@
     "types": ["psychic"],
     "number": "TG16",
     "rarity": "rare holo v",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9tg/TG16.png",
       "large": "https://images.pokemontcg.io/swsh9tg/TG16_hires.png",
@@ -1021,6 +1048,7 @@
     "types": ["fighting"],
     "number": "TG18",
     "rarity": "rare holo v",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9tg/TG18.png",
       "large": "https://images.pokemontcg.io/swsh9tg/TG18_hires.png",
@@ -1037,6 +1065,7 @@
     "types": ["lightning"],
     "number": "TG16",
     "rarity": "rare holo v",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG16.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG16_hires.png",
@@ -1045,6 +1074,7 @@
     }
   },
   {
+    "___": "稀有 全息 最大对角",
     "id": "swsh9tg-TG17",
     "set": "swsh9tg",
     "name": "Mimikyu VMAX",
@@ -1053,6 +1083,7 @@
     "types": ["psychic"],
     "number": "TG17",
     "rarity": "rare holo vmax",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9tg/TG17.png",
       "large": "https://images.pokemontcg.io/swsh9tg/TG17_hires.png",
@@ -1069,6 +1100,7 @@
     "types": ["fighting"],
     "number": "TG19",
     "rarity": "rare holo vmax",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9tg/TG19.png",
       "large": "https://images.pokemontcg.io/swsh9tg/TG19_hires.png",
@@ -1085,6 +1117,7 @@
     "types": ["lightning"],
     "number": "TG17",
     "rarity": "rare holo vmax",
+    "isTrainerGallery": "true",
     "images": {
       "small": "https://images.pokemontcg.io/swsh11tg/TG17.png",
       "large": "https://images.pokemontcg.io/swsh11tg/TG17_hires.png",
@@ -1093,6 +1126,7 @@
     }
   },
   {
+    "___": "常见 反转 全息 （暂未使用）",
     "id": "swsh9-120",
     "set": "swsh9",
     "name": "Bidoof",
@@ -1100,7 +1134,7 @@
     "subtypes": ["basic"],
     "types": ["colorless"],
     "number": "120",
-    "rarity": "common",
+    "rarity": "common reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9/120.png",
       "large": "https://images.pokemontcg.io/swsh9/120_hires.png",
@@ -1116,7 +1150,7 @@
     "subtypes": ["basic"],
     "types": ["lightning"],
     "number": "49",
-    "rarity": "common",
+    "rarity": "common reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh12/49.png",
       "large": "https://images.pokemontcg.io/swsh12/49_hires.png",
@@ -1132,7 +1166,7 @@
     "subtypes": ["basic"],
     "types": ["fighting"],
     "number": "138",
-    "rarity": "common",
+    "rarity": "common reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh8/138.png",
       "large": "https://images.pokemontcg.io/swsh8/138_hires.png",
@@ -1147,7 +1181,7 @@
     "supertype": "trainer",
     "subtypes": ["stadium"],
     "number": "68",
-    "rarity": "uncommon",
+    "rarity": "uncommon reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/pgo/68.png",
       "large": "https://images.pokemontcg.io/pgo/68_hires.png",
@@ -1162,7 +1196,7 @@
     "supertype": "trainer",
     "subtypes": ["supporter"],
     "number": "173",
-    "rarity": "uncommon",
+    "rarity": "uncommon reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh1/173.png",
       "large": "https://images.pokemontcg.io/swsh1/173_hires.png",
@@ -1177,7 +1211,7 @@
     "supertype": "trainer",
     "subtypes": ["item"],
     "number": "150",
-    "rarity": "uncommon",
+    "rarity": "uncommon reverse holo",
     "images": {
       "small": "https://images.pokemontcg.io/swsh9/150.png",
       "large": "https://images.pokemontcg.io/swsh9/150_hires.png",
@@ -1186,6 +1220,7 @@
     }
   },
   {
+    "___": "惊人 稀有",
     "id": "swsh4-9",
     "set": "swsh4",
     "name": "Celebi",
@@ -1330,6 +1365,7 @@
     }
   },
   {
+    "___": "稀有 闪光",
     "id": "swsh45sv-SV093",
     "set": "swsh45sv",
     "name": "Minccino",
@@ -1362,6 +1398,7 @@
     }
   },
   {
+    "___": "稀有 全息 对角",
     "id": "swsh45sv-SV110",
     "set": "swsh45sv",
     "name": "Lapras V",
@@ -1378,6 +1415,7 @@
     }
   },
   {
+    "___": "稀有 闪光",
     "id": "swsh45sv-SV023",
     "set": "swsh45sv",
     "name": "Galarian Darumaka",
@@ -1410,6 +1448,7 @@
     }
   },
   {
+    "___": "稀有 全息 最大对角",
     "id": "swsh45sv-SV107",
     "set": "swsh45sv",
     "name": "Charizard VMAX",

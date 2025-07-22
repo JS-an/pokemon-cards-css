@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, ref } from "vue";
 
-import Search from "./Search.vue";
 import CardList from "./Cards.vue";
 import Card from "./lib/components/CardProxy.vue";
+import CardV2 from "./components/Card.vue";
 
 const showcase = ref(null);
 const basics = ref([]);
@@ -122,9 +122,7 @@ onMounted(() => {
       </section>
     </header>
 
-    <Search v-model:query="query" />
-
-    <Card
+    <CardV2
       key="test"
       id="test"
       name="test"
@@ -139,7 +137,7 @@ onMounted(() => {
 
     <br />
 
-    <Card
+    <CardV2
       key="test1"
       id="test1"
       name="test1"
@@ -150,13 +148,13 @@ onMounted(() => {
       subtypes="basic v"
       rarity="rare ultra"
       img="test/test1.png"
-      foil="12/12_foil.webp"
-      mask="12/12_mask.webp"
+      foil="215/215_foil.webp"
+      mask="215/215_mask.webp"
     />
 
     <br />
 
-    <Card
+    <CardV2
       key="pgo-12"
       id="pgo-12"
       name="Moltres"
@@ -171,7 +169,7 @@ onMounted(() => {
       mask="12/12_mask.webp"
     />
 
-    <Card
+    <CardV2
       key="swsh7-215"
       id="swsh7-215"
       name="Umbreon VMAX"
