@@ -222,8 +222,8 @@ const imageLoader = (e) => {
     :data-set="set"
     :data-subtypes="subtypes"
     :data-supertype="supertype"
-    :data-rarity="rarity"
     :data-trainer-gallery="isTrainerGallery"
+    :data-rarity="rarity"
     :style="dynamicStyles"
     ref="thisCard"
   >
