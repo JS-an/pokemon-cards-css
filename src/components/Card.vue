@@ -7,7 +7,7 @@ import { clamp, round, adjust } from "../lib/helpers/Math.js";
 const activeCardStore = useActiveCardStore();
 
 const props = defineProps({
-  // data / pokemon props
+  // data props
   id: { type: String, default: "" },
   name: { type: String, default: "" },
   number: { type: String, default: "" },
@@ -36,12 +36,17 @@ const cosmosPosition = {
   y: Math.floor(randomSeed.y * 1280),
 };
 
+const staticStyles = `
+    --seedx: ${randomSeed.x};
+    --seedy: ${randomSeed.y};
+    --cosmosbg: ${cosmosPosition.x}px ${cosmosPosition.y}px;
+  `;
+
 // 响应式变量
 const thisCard = ref(null);
 const active = ref(false);
 const interacting = ref(false);
 const loading = ref(true);
-const isVisible = ref(document.visibilityState === "visible");
 
 // 动画相关的响应式变量
 const springRotate = ref({ x: 0, y: 0 });
@@ -50,9 +55,6 @@ const springBackground = ref({ x: 50, y: 50 });
 const springRotateDelta = ref({ x: 0, y: 0 });
 const springTranslate = ref({ x: 0, y: 0 });
 const springScale = ref(1);
-
-// 定时器
-let repositionTimer;
 
 // 计算属性
 const back_img = computed(() => props.back);
@@ -70,14 +72,6 @@ const foilStyles = computed(() => {
 });
 
 // 样式计算
-const staticStyles = computed(() => {
-  return `
-    --seedx: ${randomSeed.x};
-    --seedy: ${randomSeed.y};
-    --cosmosbg: ${cosmosPosition.x}px ${cosmosPosition.y}px;
-  `;
-});
-
 const dynamicStyles = computed(() => {
   return `
       --pointer-x: ${springGlare.value.x}%;
@@ -112,10 +106,6 @@ const updateSprings = (background, rotate, glare) => {
 
 // 交互方法
 const interact = (e) => {
-  if (!isVisible.value) {
-    return (interacting.value = false);
-  }
-
   // 防止其他背景卡片被交互
   if (
     activeCardStore.activeCard &&
@@ -163,26 +153,15 @@ const interact = (e) => {
   );
 };
 
-const interactEnd = (e, delay = 500) => {
-  // setTimeout(() => {
+const interactEnd = (e) => {
   interacting.value = false;
-
   springRotate.value = { x: 0, y: 0 };
   springGlare.value = { x: 50, y: 50, o: 0 };
   springBackground.value = { x: 50, y: 50 };
-  // }, delay);
 };
 
 const activate = (e) => {
   if (active.value) return;
-
-  // 如果有活动卡片且不是当前卡片，则停用它
-  if (
-    activeCardStore.activeCard &&
-    activeCardStore.activeCard !== thisCard.value
-  ) {
-    activeCardStore.activeCard.dispatchEvent(new CustomEvent("revert"));
-  }
 
   // 设置当前卡片为活动卡片
   activeCardStore.setActiveCard(thisCard.value);
@@ -191,11 +170,6 @@ const activate = (e) => {
   active.value = true;
   interacting.value = true;
   loading.value = false;
-
-  // 5.5秒后停止交互
-  setTimeout(() => {
-    interacting.value = false;
-  }, 5500);
 
   // 设置弹出框设置
   const rect = thisCard.value.getBoundingClientRect();
@@ -212,28 +186,6 @@ const activate = (e) => {
     y: centerY - cardCenterY,
   };
   springScale.value = 1.5;
-
-  // 设置重新定位定时器
-  clearTimeout(repositionTimer);
-  repositionTimer = setTimeout(() => {
-    reposition();
-  }, 100);
-};
-
-const reposition = () => {
-  if (!active.value) return;
-
-  const rect = thisCard.value.getBoundingClientRect();
-  const { innerWidth, innerHeight } = window;
-  const centerX = innerWidth / 2;
-  const centerY = innerHeight / 2;
-  const cardCenterX = rect.left + rect.width / 2;
-  const cardCenterY = rect.top + rect.height / 2;
-
-  springTranslate.value = {
-    x: centerX - cardCenterX,
-    y: centerY - cardCenterY,
-  };
 };
 
 const deactivate = (e) => {
@@ -251,41 +203,19 @@ const deactivate = (e) => {
 
   // 清除活动卡片
   activeCardStore.clearActiveCard();
-
-  // 清除重新定位定时器
-  clearTimeout(repositionTimer);
 };
 
 const imageLoader = (e) => {
   loading.value = false;
 };
-
-// 生命周期
-onMounted(() => {
-  // 初始化状态
-  loading.value = true;
-  active.value = false;
-  interacting.value = false;
-  isVisible.value = document.visibilityState === "visible";
-
-  // 设置可见性变化监听器
-  document.addEventListener("visibilitychange", () => {
-    isVisible.value = document.visibilityState === "visible";
-  });
-
-  // 设置revert监听器
-  if (thisCard.value) {
-    thisCard.value.addEventListener("revert", deactivate);
-  }
-});
 </script>
 
 <template>
   <div
     :class="[
       'card',
-      types,
       'interactive',
+      types,
       { active, interacting, loading, masked: !!mask },
     ]"
     :data-number="number"
@@ -304,19 +234,19 @@ onMounted(() => {
         @pointermove="interact"
         @mouseout="interactEnd"
         @blur="deactivate"
-        :aria-label="`Expand the Pokemon Card; ${name}.`"
+        :aria-label="`Expand the Card; ${name}.`"
         tabindex="0"
       >
         <img
           class="card__back"
           :src="back_img"
-          alt="The back of a Pokemon Card, a Pokeball in the center with Pokemon logo above and below"
+          alt="The back of a Card"
           loading="lazy"
         />
         <div class="card__front" :style="staticStyles + foilStyles">
           <img
             :src="front_img"
-            :alt="`Front design of the ${name} Pokemon Card, with the stats and info around the edge`"
+            :alt="name"
             @load="imageLoader"
             loading="lazy"
           />
