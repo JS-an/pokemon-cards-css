@@ -57,6 +57,7 @@ const loadCards = async () => {
     gold.value = cards.slice(58, 64);
     veeGallery.value = cards.slice(64, 70);
     shinyVault.value = cards.slice(85, 91);
+    debugger
     isLoading.value = false;
   });
 };

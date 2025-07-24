@@ -16,15 +16,15 @@
 
 */
 
-.card[data-rarity="rare shiny"] .card__shine {
+.card.shiny .card__shine {
   clip-path: var(--clip);
 }
-.card[data-rarity="rare shiny"][data-subtypes^="stage"] .card__shine {
+.card.shiny[class*="stage"] .card__shine {
   clip-path: var(--clip-stage);
 }
 
-.card[data-rarity="rare shiny"] .card__shine,
-.card[data-rarity="rare shiny"] .card__shine:after {
+.card.shiny .card__shine,
+.card.shiny .card__shine:after {
 
   --space: 5%;
   --angle: 133deg;
@@ -71,7 +71,7 @@
 
 }
 
-.card[data-rarity="rare shiny"] .card__shine:after {
+.card.shiny .card__shine:after {
 
   content: "";
 
@@ -88,7 +88,7 @@
 
 }
 
-.card[data-rarity="rare shiny"] .card__shine:before {
+.card.shiny .card__shine:before {
 
   content: "";
   -webkit-mask-image: none;
@@ -122,7 +122,7 @@
 
 */
 
-.card[data-rarity="rare shiny"] .card__glare {
+.card.shiny .card__glare {
 
   background-image: 
     radial-gradient( farthest-corner circle at var(--pointer-x) var(--pointer-y), 
@@ -152,8 +152,8 @@
 
 */
 
-.card:not(.masked).card[data-rarity="rare shiny"] .card__shine,
-.card:not(.masked).card[data-rarity="rare shiny"] .card__shine:after {
+.card:not(.masked).shiny .card__shine,
+.card:not(.masked).shiny .card__shine:after {
 
   --mask: none;
   --foil: url("/img/illusion.png"); 
@@ -169,7 +169,7 @@
 
 }
 
-.card:not(.masked).card[data-rarity*="rare shiny"] .card__shine:after {
+.card:not(.masked)[class*="shiny"] .card__shine:after {
 
   filter: brightness(calc((var(--pointer-from-center)*.4) + .5)) contrast(1.4) saturate(1.2);
   mix-blend-mode: difference;

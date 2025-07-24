@@ -27,7 +27,7 @@
 */    
 
 
-.card[data-rarity="rare holo vmax"][data-trainer-gallery="true"] .card__glare {
+.card.holo-vmax.trainer-gallery .card__glare {
   
 	background-image: 
 		radial-gradient( 

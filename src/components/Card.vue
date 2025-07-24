@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, watch, nextTick } from "vue";
 import { useActiveCardStore } from "../lib/stores";
 import { clamp, round, adjust } from "../lib/helpers/Math.js";
+import { generateCardClasses } from "../lib/helpers/ClassMapper.js";
 
 // 使用 Pinia stores
 const activeCardStore = useActiveCardStore();
@@ -69,6 +70,19 @@ const foilStyles = computed(() => {
       --mask: url(/public/images/${props.mask});
     `
     : "";
+});
+
+// 生成CSS类名
+const cardClasses = computed(() => {
+  return generateCardClasses({
+    rarity: props.rarity,
+    subtypes: props.subtypes,
+    supertype: props.supertype,
+    isTrainerGallery: props.isTrainerGallery,
+    set: props.set,
+    number: props.number,
+    types: props.types
+  });
 });
 
 // 样式计算
@@ -213,17 +227,10 @@ const imageLoader = (e) => {
 <template>
   <div
     :class="[
-      'card',
+      ...cardClasses,
       'interactive',
-      types,
       { active, interacting, loading, masked: !!mask },
     ]"
-    :data-number="number"
-    :data-set="set"
-    :data-subtypes="subtypes"
-    :data-supertype="supertype"
-    :data-trainer-gallery="isTrainerGallery"
-    :data-rarity="rarity"
     :style="dynamicStyles"
     ref="thisCard"
   >

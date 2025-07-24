@@ -328,20 +328,20 @@ Shine & Glare Effects
 
 }
 
-.card[data-rarity="rare holo"] .card__glare:after,
-.card[data-rarity="rare holo cosmos"] .card__glare:after,
-.card[data-rarity$="reverse holo"] .card__glare:after {
+.card.holo .card__glare:after,
+.card.holo-cosmos .card__glare:after,
+[class*="reverse-holo"] .card__glare:after {
   clip-path: var(--clip);
 }
 
-.card[data-rarity="rare holo"][data-subtypes^="stage"] .card__glare:after,
-.card[data-rarity="rare holo cosmos"][data-subtypes^="stage"] .card__glare:after,
-.card[data-rarity$="reverse holo"][data-subtypes^="stage"] .card__glare:after {
+.card.holo[class*="stage"] .card__glare:after,
+.card.holo-cosmos[class*="stage"] .card__glare:after,
+[class*="reverse-holo"][class*="stage"] .card__glare:after {
   clip-path: var(--clip-stage);
 }
 
-.card[data-rarity="rare holo"][data-supertype="trainer"] .card__glare:after,
-.card[data-rarity="rare holo cosmos"][data-supertype="trainer"] .card__glare:after,
-.card[data-rarity$="reverse holo"][data-supertype="trainer"] .card__glare:after {
+.card.holo.trainer .card__glare:after,
+.card.holo-cosmos.trainer .card__glare:after,
+[class*="reverse-holo"].trainer .card__glare:after {
   clip-path: var(--clip-trainer);
 }
